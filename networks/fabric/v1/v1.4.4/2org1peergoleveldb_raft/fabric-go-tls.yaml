@@ -71,23 +71,27 @@ channels:
         eventSource: true
 
     chaincodes:
-    - id: marbles
+    - id: fabcar
       version: v0
       language: golang
-      path: fabric/samples/marbles/go
-      metadataPath: src/fabric/samples/marbles/go/metadata
-    - id: drm
-      version: v0
-      language: golang
-      path: fabric/scenario/drm/go
-    - id: simple
-      version: v0
-      language: golang
-      path: fabric/scenario/simple/go
-    - id: smallbank
-      version: v0
-      language: golang
-      path: fabric/scenario/smallbank/go
+      path: fabric/samples/fabcar/go
+    # - id: marbles
+    #   version: v0
+    #   language: golang
+    #   path: fabric/samples/marbles/go
+    #   metadataPath: src/fabric/samples/marbles/go/metadata
+    # - id: drm
+    #   version: v0
+    #   language: golang
+    #   path: fabric/scenario/drm/go
+    # - id: simple
+    #   version: v0
+    #   language: golang
+    #   path: fabric/scenario/simple/go
+    # - id: smallbank
+    #   version: v0
+    #   language: golang
+    #   path: fabric/scenario/smallbank/go
 
 organizations:
   Org1:

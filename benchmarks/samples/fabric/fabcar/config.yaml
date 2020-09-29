@@ -1,72 +1,71 @@
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# #
+# # Licensed under the Apache License, Version 2.0 (the "License");
+# # you may not use this file except in compliance with the License.
+# # You may obtain a copy of the License at
+# #
+# # http://www.apache.org/licenses/LICENSE-2.0
+# #
+# # Unless required by applicable law or agreed to in writing, software
+# # distributed under the License is distributed on an "AS IS" BASIS,
+# # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# # See the License for the specific language governing permissions and
+# # limitations under the License.
+# #
 
 ---
 test:
+  name: Fabcar Testing
+  description: This is an example benchmark for caliper, to test the backend DLT's
+    performance with simple creating car, quering car and transfer the owner of the car using defaul chaincode
+    provided by hyperledger fabric
   workers:
     type: local
-    number: 5
+    number: 1
   rounds:
-  - label: Change car owner.
-    txDuration:
-    - 30
+  - label: Change Car Owner
+    description: Test description for chaning the car owner through the deployed chaincode
+    txNumber: 100
     rateControl:
-    - type: fixed-backlog
+      type: fixed-rate
       opts:
-        unfinished_per_client: 5
+        tps: 50
     arguments:
-      assets: 1000
+      assets: 100
     callback: benchmarks/samples/fabric/fabcar/changeCarOwner.js
-  - label: Query all cars.
-    txDuration:
-    - 30
+  - label: Query All Cars
+    description: Test description for querying all the cars through the deployed chaincode
+    txNumber: 100
     rateControl:
-    - type: fixed-backlog
+      type: fixed-rate
       opts:
-        unfinished_per_client: 5
+        tps: 50
     arguments:
-      assets: 1000
+      assets: 100
+    callback: benchmarks/samples/fabric/fabcar/queryAllCars.js
+  - label: Query Car
+    description: Test description for the query a car using the following arguments through the deployed chaincode
+    txNumber: 100
+    rateControl:
+      type: fixed-rate
+      opts:
+        tps: 50
+    arguments:
+      assets: 100
       startKey: '1'
       endKey: '50'
-    callback: benchmarks/samples/fabric/fabcar/queryAllCars.js
-  - label: Query a car.
-    txDuration:
-    - 30
-    rateControl:
-    - type: fixed-backlog
-      opts:
-        unfinished_per_client: 5
-    arguments:
-      assets: 1000
     callback: benchmarks/samples/fabric/fabcar/queryCar.js
-  - label: Create a car.
-    txDuration:
-    - 30
+  - label: Create Car
+    description: Test description for creating a car through the deployed chaincode
+    txNumber: 100
     rateControl:
-    - type: fixed-backlog
+      type: fixed-rate
       opts:
-        unfinished_per_client: 5
+        tps: 50
     callback: benchmarks/samples/fabric/fabcar/createCar.js
 monitor:
   type:
   - docker
-  - process
   docker:
     name:
     - all
-  process:
-  - command: node
-    arguments: fabricClientWorker.js
-    multiOutput: avg
   interval: 1
